@@ -262,3 +262,9 @@ input{
 .wp-post-image{
 	border-radius:50px;
 }
+
+/* Post format style example */
+.format-quote{
+	background-color: #eee;
+	padding:1em;
+}

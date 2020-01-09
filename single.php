@@ -29,6 +29,8 @@
     </article>
     <!-- end .post -->
 
+    <?php comments_template(); //require comments.php ?>
+
 	<?php
 		} //end while
 	 }else{ ?>
