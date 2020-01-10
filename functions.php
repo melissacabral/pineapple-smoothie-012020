@@ -1,4 +1,7 @@
 <?php
+//max width of youtube embeds and others
+if ( ! isset( $content_width ) ) $content_width = 700;
+
 //allows you to add featured image to each post
 add_theme_support( 'post-thumbnails' );
 
@@ -76,14 +79,14 @@ function pineapple_foot(){
 	echo 'Whatever you want!!! <br>';
 }
 //										high number causes this to run last
-add_action( 'wp_footer', 'pineapple_foot', 999 );
+//add_action( 'wp_footer', 'pineapple_foot', 999 );
 
 
 function pineapple_otherfoot(){
 	echo 'I want this to show up first <br>';
 }
 //											low number causes this to run first
-add_action( 'wp_footer', 'pineapple_otherfoot', 0);
+//add_action( 'wp_footer', 'pineapple_otherfoot', 0);
 
 
 //hook a function onto loop_start
@@ -91,7 +94,7 @@ function pineapple_loopy(){
 	echo 'HERE COMES THE LOOP:';
 }
 //										high number causes this to run last
-add_action( 'loop_start', 'pineapple_loopy' );
+//add_action( 'loop_start', 'pineapple_loopy' );
 
 
 //Attach the comment reply javascript (better UX when replying to comments)
@@ -100,7 +103,44 @@ function pineapple_commentreply(){
 	if( is_singular() AND comments_open() ){
 		wp_enqueue_script( 'comment-reply' );
 	}
+	//put our icon font stylesheet on the page
+	wp_enqueue_style( 'genericons', get_stylesheet_directory_uri() . '/genericons/genericons.css' );
 }
 add_action( 'wp_enqueue_scripts', 'pineapple_commentreply' );
+
+
+//Create all the needed menu areas for this theme (step 1)
+add_action( 'init', 'pineapple_menu_areas' );
+function pineapple_menu_areas(){
+	register_nav_menus( array(
+		'main_nav' 		=> 'Main Navigation',
+		'social_icons'	=> 'Social Media Icons',
+	) );
+}
+
+
+//Custom function to handle all types of loop pagination (single/archive/etc)
+function pineapple_pagination(){
+	//if looking at a single page or post
+	if( is_singular() ){
+		previous_post_link( '%link', '&larr; %title'  );
+		next_post_link( '%link', '%title &rarr;' );		
+	}else{
+		//archive pagination
+		if( wp_is_mobile() ){
+			//mobile  (prev/next buttons)
+			previous_posts_link();
+			next_posts_link();
+		}else{
+			//desktop (numbered pagination)
+			the_posts_pagination(array(
+				'prev_text' => '&larr; Previous',
+				'next_text' => 'Next Page &rarr;',
+				'mid_size'	=> 10,
+			));
+		}		
+	}
+}
+
 
 //no close php

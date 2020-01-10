@@ -39,6 +39,10 @@
 
 	<?php
 		} //end while
+
+    //custom function
+    pineapple_pagination();
+
 	 }else{ ?>
 		
 		<div class="noposts">
