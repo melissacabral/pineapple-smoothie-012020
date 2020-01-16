@@ -32,6 +32,6 @@
   </main>
   <!-- end #content -->
 
-<?php get_sidebar(); //require sidebar.php ?>
+<?php get_sidebar( 'page' ); //require sidebar-page.php ?>
 
 <?php get_footer(); //require footer.php ?>

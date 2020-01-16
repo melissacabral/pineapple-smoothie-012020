@@ -142,5 +142,62 @@ function pineapple_pagination(){
 	}
 }
 
+//Register as many Widget Areas (Dynamic sidebars) as this theme needs
+add_action( 'widgets_init', 'pineapple_widget_areas' );
+function pineapple_widget_areas(){
+	register_sidebar( array(
+		'name' 	=> 'Blog Sidebar',
+		'id' 	=> 'blog-sidebar',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'	=> '</section>',
+	) );
+
+	register_sidebar( array(
+		'name' 	=> 'Page Sidebar',
+		'id' 	=> 'page-sidebar',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'	=> '</section>',
+	) );
+
+	register_sidebar( array(
+		'name' 	=> 'Footer Area',
+		'id' 	=> 'footer-area',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'	=> '</section>',
+	) );
+}
+
+//Change the comment count to only include real comments
+add_filter( 'get_comments_number', 'pineapple_comment_count' );
+function pineapple_comment_count(){
+	global $id;
+	//array containing all comments and pings
+	$comments = get_approved_comments($id);
+	$count = 0;
+	foreach( $comments as $comment ){
+		//if it's a real comment, increase the count
+		if( $comment->comment_type == '' ){
+			$count++;
+		}
+	}
+	return $count;
+}
+
+
+//Count all the pingbacks and trackbacks on this post
+function pineapple_pings_count(){
+	global $id;
+	//array containing all comments and pings
+	$comments = get_approved_comments($id);
+	$count = 0;
+	foreach( $comments as $comment ){
+		//if it's not a real comment, increase the count
+		if( $comment->comment_type != '' ){
+			$count++;
+		}
+	}
+	return $count;
+}
+
 
 //no close php

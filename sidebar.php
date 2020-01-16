@@ -1,4 +1,9 @@
 <aside class="sidebar">
+    
+    <?php //if there are widgets in the widget area, show them, otherwise show fallback stuff
+    if( ! dynamic_sidebar( 'blog-sidebar' ) ){
+    ?>    
+
     <section id="categories" class="widget">
       <h3 class="widget-title"> Categories </h3>
       <ul>
@@ -42,13 +47,12 @@
         <?php wp_register(); //depending on settings, show a link to admin, register form, or nothing ?>
         <li><?php wp_loginout(); ?></li>
       </ul>
-
-
     <?php 
     if( ! is_user_logged_in() ){
          wp_login_form(); 
     }
     ?>
     </section>
+    <?php } ?>
   </aside>
   <!-- end #sidebar -->
