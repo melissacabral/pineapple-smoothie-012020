@@ -27,7 +27,7 @@ add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form'
 
 //make the RSS feeds more useful. 
 //DEV: Use this if your site has a blog or news section
-add_theme_support( 'feed-links' );
+add_theme_support( 'automatic-feed-links' );
 
 //allow bloggers to choose a format for their post besides "standard". 
 //DEV: delete the ones you don't plan on styling

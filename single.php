@@ -44,7 +44,7 @@
   }else{ ?>
 
     <div class="noposts">
-     <h2>Sorry, no posts found</h2>
+     <h2><?php _e('Sorry, no posts found', 'pineapple-smoothie'); ?></h2>
    </div>
 
  <?php } //end if posts found ?>

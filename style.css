@@ -4,6 +4,9 @@ Author: Melissa Cabral
 Description: A theme for learning how to make themes
 Version: 0.1
 License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Text Domain: pineapple-smoothie
+Tags: blog, portfolio, photography, two-columns, footer-widgets
 */
 
 
@@ -49,7 +52,7 @@ a img.aligncenter {
     margin-right: auto;
 }
 
-.wp-caption {
+.wp-caption, .gallery-caption {
     background: #fff;
     border: 1px solid #f0f0f0;
     max-width: 96%; /* Image does not overflow the content area */
@@ -429,4 +432,10 @@ SOCIAL ICONS from twentysixteen
 
 .social-navigation a[href$="/feed/"]:before {
 	content: "\f413";
+}
+
+/* theme check requirements */
+
+.bypostauthor{
+	background-color: lemonchiffon;
 }
