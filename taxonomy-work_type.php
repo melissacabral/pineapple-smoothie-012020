@@ -6,7 +6,7 @@
 //if there are posts, show them
   if( have_posts() ){  ?>
 
-    <h1 class="page-title">Portfolio</h1>
+    <h1 class="page-title">Portfolio - <?php single_cat_title(); ?></h1>
 
     <ul class="work-type-menu">
       <?php wp_list_categories( array(
