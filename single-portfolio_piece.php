@@ -17,6 +17,9 @@
 //'thumbnail', 'medium', 'large' or 'full'
       the_post_thumbnail( 'medium' );  ?>
 
+
+      <?php the_terms( $post->ID, 'work_type', '<h4>', ', ', '</h4>' ); ?>
+
       <h2 class="entry-title"> 
         <a href="<?php the_permalink(); ?>"> 
           <?php the_title(); ?> 
