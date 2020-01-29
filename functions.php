@@ -165,6 +165,13 @@ function pineapple_widget_areas(){
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'	=> '</section>',
 	) );
+
+	register_sidebar( array(
+		'name' 	=> 'Shop Widgets',
+		'id' 	=> 'shop-widgets',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'	=> '</section>',
+	) );
 }
 
 //Change the comment count to only include real comments
@@ -198,6 +205,79 @@ function pineapple_pings_count(){
 	}
 	return $count;
 }
+
+//WOOCOMMERCE Additions
+add_action( 'after_setup_theme', 'pineapple_woo' );
+function pineapple_woo(){
+	add_theme_support( 'woocommerce' );
+	add_theme_support( 'wc-product-gallery-zoom' );
+	add_theme_support( 'wc-product-gallery-lightbox' );
+	add_theme_support( 'wc-product-gallery-slider' );
+}
+
+//change woocommerce content container to match our theme
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+
+add_action('woocommerce_before_main_content', 'pineapple_wrapper_start', 10);
+add_action('woocommerce_after_main_content', 'pineapple_wrapper_end', 10);
+
+function pineapple_wrapper_start() {
+  echo '<main class="content">';
+}
+
+function pineapple_wrapper_end() {
+  echo '</main>';
+}
+
+
+/**
+ * Show cart contents / total Ajax
+ */
+add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment' );
+
+function woocommerce_header_add_to_cart_fragment( $fragments ) {
+	global $woocommerce;
+
+	ob_start();
+
+	?>
+	<a class="cart-customlocation" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php _e('View your shopping cart', 'woothemes'); ?>"><?php echo sprintf(_n('%d item', '%d items', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count);?> - <?php echo $woocommerce->cart->get_cart_total(); ?></a>
+	<?php
+	$fragments['a.cart-customlocation'] = ob_get_clean();
+	return $fragments;
+}
+
+
+
+// Remove Woocommerce CSS
+add_filter( 'woocommerce_enqueue_styles', 'pineapple_dequeue_styles' );
+function pineapple_dequeue_styles( $enqueue_styles ) {
+	
+	//unset( $enqueue_styles['woocommerce-general'] );	
+	//unset( $enqueue_styles['woocommerce-layout'] );		
+	//unset( $enqueue_styles['woocommerce-smallscreen'] );	
+	
+	return $enqueue_styles;
+}
+
+//Woocommerce hook example - this is better than editing the template
+add_action( 'woocommerce_archive_description', 'pineapple_shophead' );
+function pineapple_shophead(){
+	echo 'Check out all this amazing stuff';
+}
+
+
+//Example of how to customize default WP Queries
+//change the number of search results
+add_action( 'pre_get_posts', 'pineapple_search_query' );
+function pineapple_search_query( $query ){
+	if( is_search() ){
+		$query->set( 'posts_per_page', '15' );
+	}
+}
+
+
 
 
 //no close php

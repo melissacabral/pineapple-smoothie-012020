@@ -439,3 +439,10 @@ SOCIAL ICONS from twentysixteen
 .bypostauthor{
 	background-color: lemonchiffon;
 }
+
+
+/*WOOCOMMERCE*/
+body.woocommerce span.onsale{
+	background-color: orange ;
+}
+

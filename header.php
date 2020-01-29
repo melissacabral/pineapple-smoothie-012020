@@ -10,6 +10,9 @@
 <header class="header">
   <div class="header-bar">
 
+    <?php //this came from woocommerce docs - "show cart contents" ?>
+    <a class="cart-customlocation" href="<?php echo wc_get_cart_url(); ?>" title="<?php _e( 'View your shopping cart', 'pineapple-smoothie' ); ?>"><?php echo sprintf ( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ); ?> - <?php echo WC()->cart->get_cart_total(); ?></a>
+
     <?php 
     //you must activate this in functions.php with add_theme_support
     the_custom_logo(); ?>
